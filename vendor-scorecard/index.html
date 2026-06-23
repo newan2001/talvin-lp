@@ -581,11 +581,182 @@
         <p style="font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.6; color: rgba(20,20,20,0.6); margin: 0; max-width: 640px;">Rate each vendor 1–5 across the twelve criteria. The sheet weights and totals them for you. Add Talvin's column if you want a baseline to compare against.</p>
       </div>
 
-      <!-- [TALLY EMBED] Replace this block with the Tally scorecard form embed code -->
-      <div style="border: 2px dashed #6300FF; border-radius: 20px; background: #F1E8FF; padding: 56px 24px; text-align: center; color: #6300FF; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.7;">
-        ⬇ AI Interview Vendor Scorecard form embeds here (Tally) ⬇<br><br>
-        <span style="font-weight: 400; color: rgba(99,0,255,0.7);">Paste the Tally embed &lt;script&gt; / iframe in place of this block.</span>
-      </div>
+      <!-- Talvin AI Interview Vendor Scorecard — custom widget -->
+<div id="tvb-root" data-endpoint="https://dxzopgjrqiqsjeoqtdnm.supabase.co/functions/v1/scorecard-submit" data-book-url="https://www.talvin.ai/book-a-demo"></div>
+<style>
+#tvb-root{--p:#6300FF;--ink:#141414;--mut:#6b6b78;--line:rgba(99,0,255,.15);--soft:#f6f3ff;font-family:'Inter',-apple-system,sans-serif;max-width:720px;margin:0 auto;color:var(--ink);}
+#tvb-root *{box-sizing:border-box;}
+.tvb-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px 30px;box-shadow:0 10px 40px rgba(99,0,255,.06);}
+.tvb-bar{height:6px;background:var(--soft);border-radius:99px;overflow:hidden;margin-bottom:22px;}
+.tvb-bar>i{display:block;height:100%;background:var(--p);width:0;transition:width .3s;}
+.tvb-step{font-size:13px;font-weight:600;color:var(--p);margin-bottom:10px;}
+.tvb-q{font-size:21px;font-weight:700;line-height:1.3;margin:0 0 20px;}
+.tvb-opts{display:flex;flex-direction:column;gap:10px;}
+.tvb-opt{text-align:left;width:100%;padding:15px 18px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font:inherit;font-size:15.5px;font-weight:500;color:var(--ink);cursor:pointer;transition:all .15s;}
+.tvb-opt:hover{border-color:var(--p);background:var(--soft);}
+.tvb-opt.sel{border-color:var(--p);background:var(--p);color:#fff;}
+.tvb-in{width:100%;padding:15px 18px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:16px;margin-bottom:12px;}
+.tvb-in:focus{outline:none;border-color:var(--p);}
+.tvb-btn{background:var(--p);color:#fff;border:0;border-radius:99px;padding:14px 30px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s,opacity .15s;text-decoration:none;display:inline-block;}
+.tvb-btn:hover{transform:translateY(-1px);}
+.tvb-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.tvb-back{background:none;border:0;color:var(--mut);font:inherit;font-weight:600;cursor:pointer;padding:8px 4px;}
+.tvb-micro{font-size:13.5px;color:var(--mut);margin-top:8px;line-height:1.5;}
+.tvb-nav{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+.tvb-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);}
+.tvb-row:last-child{border-bottom:0;}
+.tvb-rowlabel{flex:1;font-size:14.5px;font-weight:600;line-height:1.35;}
+.tvb-pills{display:flex;gap:6px;flex:0 0 auto;}
+.tvb-pill{width:34px;height:34px;border:1.5px solid var(--line);border-radius:9px;background:#fff;font:inherit;font-weight:700;font-size:14px;color:var(--mut);cursor:pointer;transition:all .12s;}
+.tvb-pill:hover{border-color:var(--p);}
+.tvb-pill.sel{background:var(--p);border-color:var(--p);color:#fff;}
+.tvb-scalehdr{display:flex;justify-content:flex-end;font-size:11.5px;color:var(--mut);margin-bottom:4px;gap:6px;}
+.tvb-scalehdr span{width:34px;text-align:center;}
+.tvb-badge{display:inline-block;background:var(--soft);color:var(--p);font-weight:700;font-size:14px;padding:7px 16px;border-radius:99px;margin-bottom:16px;}
+.tvb-verdict{font-size:26px;font-weight:800;line-height:1.2;margin:0 0 10px;}
+.tvb-gaps{font-size:16px;color:var(--mut);line-height:1.6;margin:0 0 24px;}
+.tvb-ql{counter-reset:q;list-style:none;padding:0;margin:0 0 26px;}
+.tvb-ql li{counter-increment:q;position:relative;padding:12px 12px 12px 44px;border:1px solid var(--line);border-radius:11px;margin-bottom:9px;font-weight:500;font-size:14.5px;line-height:1.4;}
+.tvb-ql li::before{content:counter(q);position:absolute;left:12px;top:11px;width:24px;height:24px;background:var(--p);color:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;}
+.tvb-talvin{background:var(--soft);border-radius:14px;padding:18px 20px;font-size:15px;line-height:1.6;margin:0 0 22px;}
+.tvb-sent{font-size:14px;color:var(--mut);margin-top:14px;}
+@media(max-width:560px){.tvb-rowlabel{font-size:13.5px;}.tvb-pill{width:30px;height:30px;}}
+</style>
+<script>
+(function(){
+  var root=document.getElementById('tvb-root');
+  if(!root) return;
+  var ENDPOINT=root.getAttribute('data-endpoint')||'';
+  var BOOK=root.getAttribute('data-book-url')||'#';
+
+  var CRITERIA=[
+    "Screening accuracy — does it identify the right candidates?",
+    "Ranking quality — an ordered shortlist, not just pass/fail",
+    "Candidate completion rate",
+    "How human the experience feels",
+    "Bias controls & auditability",
+    "Explainable decisions — can it justify an advance or reject?",
+    "ATS integrations live today (not roadmap)",
+    "Setup effort & time-to-live",
+    "Conversational / voice depth (real conversation vs a form)",
+    "Languages & accents handled",
+    "Pricing transparency at volume",
+    "Support & onboarding"
+  ];
+  var SHORT=["Screening accuracy","Ranking quality","Completion rate","Human experience","Bias & auditability","Explainable decisions","ATS integrations","Setup & time-to-live","Voice depth","Languages & accents","Pricing transparency","Support & onboarding"];
+  var QUESTIONS=[
+    "Show me how you'd explain a rejection to a candidate who asks.",
+    "What's your candidate completion rate, and how is it measured?",
+    "Which ATS integrations are live today — not on the roadmap?",
+    "What does pricing look like at 500 interviews a month, in writing?",
+    "How do you detect and report bias across demographic groups?",
+    "Can a hiring manager see why a candidate was ranked where they were?",
+    "Which languages and accents do you support, and how accurate are they?",
+    "How long from signing to a live role?",
+    "Where is candidate data stored, and who owns it?",
+    "What's the accessibility story — re-attempts and accommodations?",
+    "What's your uptime and support SLA?",
+    "Who owns the interview questions and scoring logic?"
+  ];
+  var PROFILE=[
+    {k:"region",q:"Where are you primarily hiring?",o:["Singapore","Malaysia","USA","Other"]},
+    {k:"industry",q:"What industry?",o:["Tech / SaaS","Staffing / Recruitment","Retail / F&B / Hospitality","Logistics","Financial Services","Healthcare","Education","Other"]}
+  ];
+
+  var vendor="", ratings=new Array(CRITERIA.length).fill(0), prof={}, email="", name="";
+  // steps: 0 vendor, 1 grid, 2..(1+PROFILE) profile, then email
+  var pIdx=function(i){return i-2;};
+  var totalSteps=2+PROFILE.length+1;
+  var i=0;
+
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function pct(){return Math.round((i/totalSteps)*100);}
+
+  function render(){
+    var html='<div class="tvb-bar"><i style="width:'+pct()+'%"></i></div><div class="tvb-card">';
+    if(i===0){
+      html+='<div class="tvb-step">Step 1 of '+totalSteps+'</div><h3 class="tvb-q">Which AI interview tool are you evaluating?</h3>';
+      html+='<input class="tvb-in" id="tvb-vendor" placeholder="Vendor name (e.g. HireVue, Ribbon, Interviewer.AI)" value="'+esc(vendor)+'">';
+      html+='<p class="tvb-micro">We’ll tailor your scorecard and the questions to ask them.</p>';
+      html+='<div class="tvb-nav"><span></span><button class="tvb-btn" id="tvb-next0">Next →</button></div></div>';
+      root.innerHTML=html;
+      document.getElementById('tvb-next0').addEventListener('click',function(){vendor=document.getElementById('tvb-vendor').value.trim()||'this vendor';i=1;render();});
+      return;
+    }
+    if(i===1){
+      html+='<div class="tvb-step">Rate '+esc(vendor)+' on each — 1 (poor) to 5 (excellent)</div><h3 class="tvb-q">Score the vendor</h3>';
+      html+='<div class="tvb-scalehdr"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>';
+      CRITERIA.forEach(function(c,idx){
+        html+='<div class="tvb-row"><div class="tvb-rowlabel">'+esc(c)+'</div><div class="tvb-pills">';
+        for(var v=1;v<=5;v++){html+='<button class="tvb-pill'+(ratings[idx]===v?' sel':'')+'" data-c="'+idx+'" data-v="'+v+'">'+v+'</button>';}
+        html+='</div></div>';
+      });
+      var done=ratings.every(function(r){return r>0;});
+      html+='<div class="tvb-nav"><button class="tvb-back">← Back</button><button class="tvb-btn" id="tvb-next1"'+(done?'':' disabled')+'>See my verdict →</button></div></div>';
+      root.innerHTML=html;
+      root.querySelectorAll('.tvb-pill').forEach(function(b){b.addEventListener('click',function(){ratings[parseInt(b.getAttribute('data-c'))]=parseInt(b.getAttribute('data-v'));render();});});
+      root.querySelector('.tvb-back').addEventListener('click',function(){i=0;render();});
+      var nb=document.getElementById('tvb-next1'); if(nb&&!nb.disabled) nb.addEventListener('click',function(){i=2;render();});
+      return;
+    }
+    if(i>=2 && i<2+PROFILE.length){
+      var p=PROFILE[pIdx(i)];
+      html+='<div class="tvb-step">A couple of details</div><h3 class="tvb-q">'+esc(p.q)+'</h3><div class="tvb-opts">';
+      p.o.forEach(function(t){html+='<button class="tvb-opt'+(prof[p.k]===t?' sel':'')+'" data-p="'+esc(t)+'">'+esc(t)+'</button>';});
+      html+='</div><div class="tvb-nav"><button class="tvb-back">← Back</button><span class="tvb-micro">'+pct()+'%</span></div></div>';
+      root.innerHTML=html;
+      root.querySelectorAll('.tvb-opt').forEach(function(b){b.addEventListener('click',function(){prof[p.k]=b.getAttribute('data-p');i++;render();});});
+      root.querySelector('.tvb-back').addEventListener('click',function(){i--;render();});
+      return;
+    }
+    // email gate
+    html+='<div class="tvb-step">Almost there</div><h3 class="tvb-q">Where should we send your full scorecard + the 12 questions?</h3>';
+    html+='<input class="tvb-in" id="tvb-name" placeholder="First name (optional)" value="'+esc(name)+'">';
+    html+='<input class="tvb-in" id="tvb-email" type="email" placeholder="Work email" value="'+esc(email)+'">';
+    html+='<p class="tvb-micro">Your verdict shows on the next screen. We’ll email the full scorecard and the red-flag answers to each question.</p>';
+    html+='<div class="tvb-nav"><button class="tvb-back">← Back</button><button class="tvb-btn" id="tvb-go">Show my verdict →</button></div></div>';
+    root.innerHTML=html;
+    root.querySelector('.tvb-back').addEventListener('click',function(){i--;render();});
+    document.getElementById('tvb-go').addEventListener('click',function(){
+      var em=document.getElementById('tvb-email').value.trim(); name=document.getElementById('tvb-name').value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){document.getElementById('tvb-email').style.borderColor='#e23';return;}
+      email=em; submitAndShow();
+    });
+  }
+
+  function gaps(){
+    var idx=ratings.map(function(r,n){return {r:r,n:n};}).sort(function(a,b){return a.r-b.r;}).slice(0,3).filter(function(x){return x.r<=3;});
+    return idx.map(function(x){return SHORT[x.n];});
+  }
+  function submitAndShow(){
+    var total=ratings.reduce(function(a,b){return a+b;},0);
+    var g=gaps();
+    var payload={email:email,name:name,vendor:vendor,total:total,gaps:g.join(", "),ratings:ratings,profile:prof,track:"vendor-scorecard"};
+    if(ENDPOINT){try{fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}).catch(function(){});}catch(e){}}
+    showResult(total,g);
+  }
+  function verdict(t){return t>=48?"Strong fit — but verify the red-flags":t>=33?"Mixed — real gaps to probe before you sign":"High risk — likely to hit walls within 3 months";}
+
+  function showResult(total,g){
+    var html='<div class="tvb-card"><div class="tvb-badge">'+esc(vendor)+' scorecard: '+total+'/60</div>';
+    html+='<h2 class="tvb-verdict">'+esc(verdict(total))+'</h2>';
+    if(g.length){html+='<p class="tvb-gaps">Weakest areas to dig into: <strong>'+esc(g.join(", "))+'</strong>. Those are where tools like this usually break down in real hiring.</p>';}
+    else{html+='<p class="tvb-gaps">No glaring weak spots — still pressure-test the answers below before you commit.</p>';}
+    html+='<h3 class="tvb-q" style="font-size:18px;">Ask '+esc(vendor)+' these 12 questions before you sign</h3><ol class="tvb-ql">';
+    QUESTIONS.forEach(function(q){html+='<li>'+esc(q)+'</li>';});
+    html+='</ol>';
+    html+='<div class="tvb-talvin">Curious how Talvin scores on the criteria most tools fail — bias explainability, candidate experience, real voice depth, and pricing transparency? Bring your shortlist to a call and we’ll run it through the same scorecard, honestly.</div>';
+    html+='<a class="tvb-btn" href="'+esc(BOOK)+'">Book a comparison call →</a>';
+    html+='<p class="tvb-sent">✉ Full scorecard + the red-flag answer for each question'+(email?' on its way to '+esc(email):'')+'.</p>';
+    html+='</div>';
+    root.innerHTML=html;
+    window.scrollTo({top:root.getBoundingClientRect().top+window.scrollY-40,behavior:'smooth'});
+  }
+
+  render();
+})();
+</script>
+
     </div>
   </section>
 
