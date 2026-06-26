@@ -110,7 +110,15 @@ function __mount(){
     var vendorNames=selV.map(function(s){return (vBySlug(s)||{}).name;}).filter(Boolean);
     if(requested) vendorNames.push(requested+" (requested)");
     var critLabels=selC.map(function(k){var c=CRITERIA.filter(function(x){return x.key===k;})[0];return c?c.label:k;});
-    var payload={email:email,name:name,vendors:vendorNames,criteria:critLabels,profile:prof,track:"vendor-comparison"};
+    // One-paragraph text summary for the email (single line — renders in MailerLite)
+    var talvin=VENDORS.filter(function(v){return v.featured;})[0];
+    var others=selV.map(vBySlug).filter(function(v){return v && !v.featured;});
+    var talvinVals=selC.slice(0,3).map(function(k){return (talvin||{})[k];}).filter(Boolean);
+    var otherFmt=[]; others.forEach(function(v){ if(v.format && otherFmt.indexOf(v.format)<0) otherFmt.push(v.format); });
+    var summary="You compared "+vendorNames.join(", ")+" on "+critLabels.join(", ")+". "
+      +(talvin&&talvinVals.length? "On those, "+talvin.name+" brings "+talvinVals.join(", ")+" — the things teams tell us matter most once they're live. " : "")
+      +(otherFmt.length? "The others in your set lean toward "+otherFmt.join("; ")+"." : "");
+    var payload={email:email,name:name,vendors:vendorNames,criteria:critLabels,summary:summary,profile:prof,track:"vendor-comparison"};
     if(ENDPOINT){try{fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}).catch(function(){});}catch(e){}}
     showResult();
   }
