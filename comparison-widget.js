@@ -16,6 +16,9 @@ function __mount(){
   var DB=null, CRITERIA=[], VENDORS=[];
   var selV=[], selC=[], prof={}, email="", name="", requested="";
   var i=0;
+  // Pre-fill from a sequence link (?e=email&n=name): known subscribers skip the email gate.
+  var prefilled=false;
+  (function(){try{var q=new URLSearchParams(location.search);var e=(q.get('e')||'').trim();if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){email=e;name=(q.get('n')||'').trim();prefilled=true;}}catch(_){}})();
   var PROFILE=[
     {k:"region",q:"Where are you primarily hiring?",o:["Singapore","Malaysia","USA","Other"]},
     {k:"industry",q:"What industry?",o:["Tech / SaaS","Staffing / Recruitment","Retail / F&B / Hospitality","Logistics","Financial Services","Healthcare","Education","Other"]}
@@ -92,6 +95,7 @@ function __mount(){
       return;
     }
     // email gate
+    if(prefilled){ submitAndShow(); return; }
     html+='<div class="tvc-step">Almost there</div><h3 class="tvc-q">Where should we send your full comparison?</h3>';
     html+='<input class="tvc-in" id="tvc-name" placeholder="First name (optional)" value="'+esc(name)+'" style="margin-top:0;margin-bottom:12px;">';
     html+='<input class="tvc-in" id="tvc-email" type="email" placeholder="Work email" value="'+esc(email)+'" style="margin-top:0;">';
