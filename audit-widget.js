@@ -41,6 +41,9 @@ function __mount(){
 
   var ans=new Array(SCORED.length).fill(null);
   var prof={}; var email="",name="";
+  // Pre-fill from a sequence link (?e=email&n=name): known subscribers skip the email gate.
+  var prefilled=false;
+  (function(){try{var q=new URLSearchParams(location.search);var e=(q.get('e')||'').trim();if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){email=e;name=(q.get('n')||'').trim();prefilled=true;}}catch(_){}})();
   var steps=SCORED.length+PROFILE.length+1; // +email
   var i=0;
 
@@ -60,6 +63,7 @@ function __mount(){
       p.o.forEach(function(t){html+='<button class="tva-opt'+(prof[p.k]===t?' sel':'')+'" data-p="'+esc(t)+'">'+esc(t)+'</button>';});
       html+='</div>';
     } else {
+      if(prefilled){ submitAndShow(); return; }
       html+='<div class="tva-step">Almost there</div><h3 class="tva-q">Where should we send your full scorecard?</h3>';
       html+='<input class="tva-in" id="tva-name" placeholder="First name (optional)" value="'+esc(name)+'">';
       html+='<input class="tva-in" id="tva-email" type="email" placeholder="Work email" value="'+esc(email)+'">';
